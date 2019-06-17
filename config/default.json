@@ -1,0 +1,16 @@
+[
+    {
+        "name": "SceneExplorer",
+        "owner": "ambiesoft",
+        "repotype": "github",
+        "history": "History.txt",
+        "onelinedesc" : "Exploring video files through thumbnails"
+    },
+    {
+        "name": "SimpBrowser",
+        "owner": "ambiesoft",
+        "repotype": "github",
+        "history": "History.txt",
+        "onelinedesc" : "Simple IE-based webbrowser"
+    }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "gitappdata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gitappdata.js",
+  "dependencies": {
+    "@octokit/rest": "^16.27.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ambiesoft",
+  "license": "ISC"
+}
