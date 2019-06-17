@@ -2,6 +2,7 @@
 //     const config = require('gitappdata.config')
 // }
 // console.log("cwd = " + process.cwd())
+
 var config
 if ( process.argv === undefined || process.argv.length <= 2) {
     config = require('./config/default.json')
