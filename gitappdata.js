@@ -39,8 +39,9 @@ const clientOptions = {
     baseUrl: 'https://api.bitbucket.org/2.0',
     headers: {},
     options: {
-        timeout: 1000
-    }
+        // timeout: 1000
+    },
+    hideNotice: true
 }
 const bitbucket = new Bitbucket(clientOptions)
 
@@ -48,11 +49,7 @@ const bitbucket = new Bitbucket(clientOptions)
 const AppInfo = require('./appinfo')
 const Debugging = false
 
-function getDateFromHistory(history) {
-    history = btoa(history)
-    var line = history.split(/\r?\n/g)[0]
-    return line.split(' ')[0]
-}
+
 function main() {
     var appinfos = []
     var dupnamecheck = []
@@ -77,17 +74,18 @@ function main() {
                 repo: v.name,
                 path: v.history
             }).then(({ data }) => {
-                dlog(btoa(data.content))
-                appinfo.setHistory(data.content)
-                appinfo.setDate(getDateFromHistory(data.content))
-                return octokit.repos.listTags({
-                    owner: v.owner,
-                    repo: v.name,
-                }).then(({ data }) => {
-                    dlog(data)
-                    appinfo.setVersion(data[0].name)
-                    appinfos.push(appinfo)
-                })
+                var rawhistory = btoa(data.content)
+                dlog(rawhistory)
+                appinfo.setHistory(rawhistory)
+                appinfos.push(appinfo)
+                // return octokit.repos.listTags({
+                //     owner: v.owner,
+                //     repo: v.name,
+                // }).then(({ data }) => {
+                //     dlog(data)
+                //     appinfo.setVersion(data[0].name)
+                //     appinfos.push(appinfo)
+                // })
             })
         } else if (v.repotype === 'bitbucket') {
             if (v.username) {
@@ -97,10 +95,29 @@ function main() {
                     password: v.password
                 })
             }
+            // https://bitbucketjs.netlify.com/#api-repositories-repositories_readSrc
             return bitbucket.repositories
-                .list({ username: v.owner })
+                .readSrc({
+                    username: v.owner,
+                    node: 'master',
+                    path: v.history,
+                    repo_slug: v.name,
+                })
                 .then(({ data, headers }) => {
-                    console.log(data.values)
+                    dlog(data)
+                    appinfo.setHistory(data)
+                    appinfos.push(appinfo)
+                    // appinfo.setDate(getDateFromHistory(data))
+                    // appinfo.setVersion
+                    // return bitbucket.refs.listTags({
+                    //     repo_slug: v.name,
+                    //     username: v.owner
+                    // })
+                    // .then(({data, header}) => {
+                    //     dlog(data)
+                    //     appinfo.setVersion(data[0].name)
+                    //     appinfos.push(appinfo)
+                    // })
                 })
                 .catch(err => console.error(err))
         }
@@ -113,6 +130,8 @@ function main() {
 
 function afterRetrieval(appinfos) {
     dlog(appinfos);
+
+    // output to stdout
     console.log(JSON.stringify(appinfos))
 }
 
