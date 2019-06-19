@@ -7,7 +7,7 @@ function getXXXCommon(history, what) {
       if (what === 'history')
         return line.split(' ')[0]
       else if (what === 'version')
-        return line.split(' ')[1]
+        return matches[0]
     }
   }
 }
