@@ -1,9 +1,9 @@
 # gitappdata
 
-This js app output the json which represents the application status retrieved from GitHub.
+This js app retrieves the application status on GitHub.
 
 ## prepare apps.json
-In the 'config' directory, copy 'default.json.sample' to 'default.json'. This file is the input for 'gitappdata'.
+1. In the 'config' directory, copy 'default.json.sample' to 'default.json'. This file is the input for 'getgitappdata.js'.
+2. Run 'node testrun.js'
 
 ## Get Information of GitHub hosted Application
-'npm run gitappdata' will get the information of application from GitHub which will be save as 'out/gitappdata.out.json'. 

@@ -5,17 +5,18 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}\\gitappdata.js"
+            "name": "Test Run",
+            "program": "${workspaceFolder}\\getgitappdata.js"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "args Launch Program with args",
-            "program": "${workspaceFolder}\\gitappdata.js",
+            "program": "${workspaceFolder}\\getgitappdata.js",
             "args": ["${workspaceFolder}\\config/test.json"]
         }
     ]
