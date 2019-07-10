@@ -1,11 +1,11 @@
 [
     {
-        "name": "SceneExplorer",
+        "name": "smartmv",
         "owner": "ambiesoft",
         "repotype": "github",
-        "history": "History.txt",
-        "onelinedesc" : "Exploring video files through thumbnails"
+        "history": "history.txt",
+        "onelinedesc": "移動や削除できないファイルをアンロックするアプリ",
+        "webpage": "https://ambiesoft.github.io/smartmv/"
     }
-
 
 ]

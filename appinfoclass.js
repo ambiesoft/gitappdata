@@ -1,3 +1,4 @@
+const stripBom = require('strip-bom');
 
 function getXXXCommon(history, what) {
   var lines = history.split(/\r?\n/g)
@@ -20,7 +21,7 @@ function getVersionFromHistory(history) {
 
 module.exports = class AppInfo {
   constructor(v) {
-    Object.assign(this,v)
+    Object.assign(this, v)
     delete this['user']
     delete this['repotype']
     delete this['password']
@@ -28,7 +29,7 @@ module.exports = class AppInfo {
 
 
   setHistory(his) {
-    this.history = his
+    this.history = stripBom(his)
     this.date = getDateFromHistory(this.history)
     this.version = getVersionFromHistory(this.history)
   }
