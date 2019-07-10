@@ -19,14 +19,14 @@ function getVersionFromHistory(history) {
 }
 
 module.exports = class AppInfo {
-  constructor(name, owner) {
-    this.name = name;
-    this.owner = owner;
+  constructor(v) {
+    Object.assign(this,v)
+    delete this['user']
+    delete this['repotype']
+    delete this['password']
   }
 
-  setOnelineDesc(desc) {
-    this.onelinedesc = desc
-  }
+
   setHistory(his) {
     this.history = his
     this.date = getDateFromHistory(this.history)

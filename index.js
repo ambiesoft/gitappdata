@@ -53,8 +53,7 @@ module.exports = class GetGitAppData {
             }
             dupnamecheck.push(v.owner + v.name)
 
-            let appinfo = new AppInfo(v.name, v.owner);
-            appinfo.setOnelineDesc(v.onelinedesc)
+            let appinfo = new AppInfo(v)
 
             if (v.repotype === 'github') {
                 return this.octokit.repos.getContents({
