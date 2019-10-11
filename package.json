@@ -6,7 +6,8 @@
   "dependencies": {
     "@octokit/rest": "^16.27.3",
     "bitbucket": "^1.15.0",
-    "strip-bom": "^4.0.0"
+    "strip-bom": "^4.0.0",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {},
   "scripts": {
