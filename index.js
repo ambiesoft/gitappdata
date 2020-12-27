@@ -15,7 +15,8 @@ function btoa(b) {
 
 
 // GitHub API interface 
-const Octokit = require('@octokit/rest')
+// const Octokit = require('@octokit/rest')
+const { Octokit } = require("@octokit/rest")
 
 // Bitbucket API interface
 const Bitbucket = require('bitbucket')
