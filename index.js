@@ -12,6 +12,13 @@ function btoa(b) {
     return Buffer.from(b, 'base64').toString()
 }
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat
+// to enable deep level flatten use recursion with reduce and concat
+function flatDeep(arr, d = 1) {
+   return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val), [])
+                : arr.slice();
+};
+
 
 
 // GitHub API interface 
@@ -122,7 +129,7 @@ module.exports = class GetGitAppData {
             }
         })
         
-        return promises.flat(Infinity);
+        return flatDeep(promises,Infinity);
     }
 }
 
