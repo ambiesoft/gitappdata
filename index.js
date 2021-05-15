@@ -57,27 +57,31 @@ module.exports = class GetGitAppData {
             let appinfo = new AppInfo(v)
 
             if (v.repotype === 'github') {
-                return this.octokit.repos.getContents({
+                let rets = [];
+                rets.push(this.octokit.repos.getContents({
                     owner: v.owner,
                     repo: v.name,
                     path: v.history
                 }).then(({ data }) => {
-                    var rawhistory = btoa(data.content)
+                    let rawhistory = btoa(data.content)
                     dlog(rawhistory)
                     appinfo.setHistory(rawhistory)
                     return appinfo;
-                    //appinfos.push(appinfo)
-                    
-                    
-                    // return octokit.repos.listTags({
-                    //     owner: v.owner,
-                    //     repo: v.name,
-                    // }).then(({ data }) => {
-                    //     dlog(data)
-                    //     appinfo.setVersion(data[0].name)
-                    //     appinfos.push(appinfo)
-                    // })
-                })
+                }));
+
+                if(v.icon) {
+                    rets.push(this.octokit.repos.getContents({
+                        owner: v.owner,
+                        repo: v.name,
+                        path: v.icon,
+                    }).then(({ data }) => {
+                        appinfo.setIconUrl(data.download_url)
+                        return appinfo;
+                    }));
+                }
+
+
+                return rets;
             } else if (v.repotype === 'bitbucket') {
                 if (v.username) {
                     this.bitbucket.authenticate({
@@ -118,7 +122,7 @@ module.exports = class GetGitAppData {
             }
         })
         
-        return promises;
+        return promises.flat(Infinity);
     }
 }
 

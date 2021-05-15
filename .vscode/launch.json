@@ -17,7 +17,7 @@
             "request": "launch",
             "name": "args Launch Program with args",
             "program": "${workspaceFolder}\\getgitappdata.js",
-            "args": ["${workspaceFolder}\\config/test.json"]
+            "args": ["${workspaceFolder}\\config/test.json", "-o", "testout.json"]
         }
     ]
 }

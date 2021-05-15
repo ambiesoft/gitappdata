@@ -33,6 +33,10 @@ module.exports = class AppInfo {
     this.date = getDateFromHistory(this.history)
     this.version = getVersionFromHistory(this.history)
   }
+
+  setIconUrl(url) {
+    this.iconUrl = url;
+  }
 }
 
 

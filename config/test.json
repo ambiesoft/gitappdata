@@ -5,7 +5,8 @@
         "repotype": "github",
         "history": "history.txt",
         "onelinedesc": "移動や削除できないファイルをアンロックするアプリ",
-        "webpage": "https://ambiesoft.github.io/smartmv/"
+        "webpage": "https://ambiesoft.github.io/smartmv/",
+        "icon" : "materials/trashcan-icon.png"
     }
 
 ]
