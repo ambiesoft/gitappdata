@@ -20,7 +20,6 @@ function flatDeep(arr, d = 1) {
 };
 
 
-
 // GitHub API interface 
 // const Octokit = require('@octokit/rest')
 const { Octokit } = require("@octokit/rest")
@@ -87,7 +86,6 @@ module.exports = class GetGitAppData {
                     }));
                 }
 
-
                 return rets;
             } else if (v.repotype === 'bitbucket') {
                 if (v.username) {
@@ -129,7 +127,8 @@ module.exports = class GetGitAppData {
             }
         })
         
-        return flatDeep(promises,Infinity);
+        let ret = flatDeep(promises,Infinity);
+        return ret;
     }
 }
 

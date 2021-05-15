@@ -6,6 +6,9 @@ function dtrace(message) {
         console.log(message)
     }
 }
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
 
 const GitAppData = require('./index')
 
@@ -44,6 +47,11 @@ let gitappdata = new GitAppData();
 gitappdata.get(config)
 .then(promises => {
     Promise.all(promises).then((appinfos) => {
+        // appinfos is array of map
+        // appinfos contains duplidate object due to multiple promises for same object
+        // Unique appinfo
+        appinfos = appinfos.filter(onlyUnique);
+        
         const str = JSON.stringify(appinfos)
         var fs = require('fs');
         fs.writeFileSync(outputfile, str)
