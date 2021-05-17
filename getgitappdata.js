@@ -31,13 +31,13 @@ if (process.argv === undefined || process.argv.length <= 2) {
     if(process.argv[3]==='-o') {
         outputfile = process.argv[4]
     }
-
-    // check
-    if(!outputfile) {
-        console.log('No output file specified')
-        return
-    }
 }
+if(!outputfile) {
+    console.log('No output file specified')
+    return
+}
+
+
 config = toArray(config)
 
 

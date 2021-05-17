@@ -88,6 +88,7 @@ module.exports = class GetGitAppData {
 
                 return rets;
             } else if (v.repotype === 'bitbucket') {
+                let rets = [];
                 if (v.username) {
                     this.bitbucket.authenticate({
                         type: 'basic',
@@ -96,7 +97,7 @@ module.exports = class GetGitAppData {
                     })
                 }
                 // https://bitbucketjs.netlify.com/#api-repositories-repositories_readSrc
-                return this.bitbucket.repositories
+                rets.push(this.bitbucket.repositories
                     .readSrc({
                         username: v.owner,
                         node: 'master',
@@ -107,23 +108,24 @@ module.exports = class GetGitAppData {
                         dlog(data)
                         appinfo.setHistory(data)
                         return appinfo
-                        //appinfos.push(appinfo)
+                    }).catch(err => console.error(err)));
 
-
-
-                        // appinfo.setDate(getDateFromHistory(data))
-                        // appinfo.setVersion
-                        // return bitbucket.refs.listTags({
-                        //     repo_slug: v.name,
-                        //     username: v.owner
-                        // })
-                        // .then(({data, header}) => {
-                        //     dlog(data)
-                        //     appinfo.setVersion(data[0].name)
-                        //     appinfos.push(appinfo)
-                        // })
+                if(v.icon) {
+                    rets.push(this.bitbucket.repositories                    
+                    .readSrc({
+                        username: v.owner,
+                        node: 'master',
+                        path: v.icon,
+                        repo_slug: v.name,
                     })
-                    .catch(err => console.error(err))
+                    .then(({ data, headers }) => {
+                        let rawIconBase64 = data.toString('base64');
+                        appinfo.setIconDataBase64(rawIconBase64);
+                        return appinfo;
+                    }).catch(err => console.error(err)));
+                }
+
+                return rets;
             }
         })
         

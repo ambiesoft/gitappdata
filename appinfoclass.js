@@ -37,6 +37,9 @@ module.exports = class AppInfo {
   setIconUrl(url) {
     this.iconUrl = url;
   }
+  setIconDataBase64(data) {
+    this.iconDataBase64 = data;
+  }
 }
 
 

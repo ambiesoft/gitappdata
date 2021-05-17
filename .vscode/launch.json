@@ -10,7 +10,8 @@
             "type": "node",
             "request": "launch",
             "name": "Test Run",
-            "program": "${workspaceFolder}\\getgitappdata.js"
+            "program": "${workspaceFolder}\\getgitappdata.js",
+            "args": ["${workspaceFolder}\\config/default.json", "-o", "defaultout.json"]            
         },
         {
             "type": "node",
