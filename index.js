@@ -46,7 +46,6 @@ module.exports = class GetGitAppData {
         this.octokit = new Octokit()
     }
     async get(config) {
-        // var appinfos = []
         var dupnamecheck = []
         var promises = config.map(v => {
 
@@ -73,7 +72,7 @@ module.exports = class GetGitAppData {
                     dlog(rawhistory)
                     appinfo.setHistory(rawhistory)
                     return appinfo;
-                }));
+                }).catch(err => console.error(err)))
 
                 if(v.icon) {
                     rets.push(this.octokit.repos.getContents({
@@ -83,7 +82,28 @@ module.exports = class GetGitAppData {
                     }).then(({ data }) => {
                         appinfo.setIconUrl(data.download_url)
                         return appinfo;
-                    }));
+                    }).catch(err => console.error(err)))
+                }
+
+                if(v.howtofile) {
+                    rets.push(this.octokit.repos.getContents({
+                        owner: v.owner,
+                        repo: v.name,
+                        path: v.howtofile,
+                    }).then(({ data }) => {
+                        appinfo.setHowTo(btoa(data.content))
+                        return appinfo;
+                    }).catch(err => console.error(err)))
+                }
+                if(v.acknowledgementfile) {
+                    rets.push(this.octokit.repos.getContents({
+                        owner: v.owner,
+                        repo: v.name,
+                        path: v.acknowledgementfile,
+                    }).then(({ data }) => {
+                        appinfo.setAcknowledgement(btoa(data.content))
+                        return appinfo;
+                    }).catch(err => console.error(err)))
                 }
 
                 return rets;

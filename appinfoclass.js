@@ -40,6 +40,13 @@ module.exports = class AppInfo {
   setIconDataBase64(data) {
     this.iconDataBase64 = data;
   }
+
+  setHowTo(data) {
+    this.howto = data;
+  }
+  setAcknowledgement(data) {
+    this.acknowledgement = data;
+  }
 }
 
 
