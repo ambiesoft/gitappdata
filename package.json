@@ -6,6 +6,7 @@
   "dependencies": {
     "@octokit/rest": "^16.43.2",
     "bitbucket": "^1.15.2",
+    "command-line-args": "^5.2.0",
     "strip-bom": "^4.0.0",
     "utf8": "^3.0.0"
   },

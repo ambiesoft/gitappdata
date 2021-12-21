@@ -1,4 +1,7 @@
 const utf8 = require('utf8');
+var path = require('path');
+// could not use 'require' outside of source directory
+var fs = require('fs');
 
 let DEBUGGING = false;
 function dtrace(message) {
@@ -22,26 +25,40 @@ function toArray(o) {
 
 var config
 var outputfile
+var output;
 if (process.argv === undefined || process.argv.length <= 2) {
-    config = require('./config/default.json')
+    config = toArray(require('./config/default.json'));
 } else {
-    // could not use 'require' outside of source directory
-    var fs = require('fs');
-    config = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
-    if(process.argv[3]==='-o') {
-        outputfile = process.argv[4]
+    const optionDefinitions = [
+        { name: 'output', alias: 'o', type: String },
+        { name: 'target', alias: 't', type: String },
+        { name: 'src', type: String, defaultOption: true },
+      ]
+    const commandLineArgs = require('command-line-args')
+    const options = commandLineArgs(optionDefinitions)
+
+    config = toArray(JSON.parse(fs.readFileSync(options.src, 'utf8')));
+    if(options.target) {
+        // remove other than target
+        config = config.filter(item => {
+            return item.name == options.target;
+        });
+        if(config.length==0) {
+            console.log(`${options.target} is not contained in ${options.src}`);
+            return;
+        }
     }
+    outputfile = options.output;
 }
 if(!outputfile) {
     console.log('No output file specified')
     return
 }
 
-
-config = toArray(config)
-
-
-
+// Read output json (later merged)
+if(fs.existsSync(outputfile)) {
+    output = toArray(JSON.parse(fs.readFileSync(outputfile)));
+}
 
 let gitappdata = new GitAppData();
 gitappdata.get(config)
@@ -51,9 +68,24 @@ gitappdata.get(config)
         // appinfos contains duplidate object due to multiple promises for same object
         // Unique appinfo
         appinfos = appinfos.filter(onlyUnique);
-        
-        const str = JSON.stringify(appinfos)
-        var fs = require('fs');
+
+        // overwrite output with appinfos
+        if(output) {
+            for(item of appinfos) {
+                // first remove from output
+                output = output.filter(outitem => {
+                    return outitem.name != item.name;
+                })
+
+                // add to output
+                output.push(item);
+            }
+        } else {
+            output = appinfos;
+        }
+
+        // write to file
+        const str = JSON.stringify(output)
         fs.writeFileSync(outputfile, str)
         // console.log(JSON.stringify(appinfos))
     })
