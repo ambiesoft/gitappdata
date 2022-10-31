@@ -7,6 +7,14 @@
         "onelinedesc": "移動や削除できないファイルをアンロックするアプリ",
         "webpage": "https://ambiesoft.github.io/smartmv/",
         "icon" : "materials/trashcan-icon.png"
+    },
+    {
+        "owner": "ambiesoft",
+        "repotype": "github",
+        "history": "history.txt",
+        "onelinedesc": "移動や削除できないファイルをアンロックするアプリ",
+        "webpage": "https://ambiesoft.github.io/smartmvffffff/",
+        "icon" : "materials/trashcan-icon.png"
     }
 
 ]

@@ -18,7 +18,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "args Launch Program with args",
+            "name": "With -o",
             "program": "${workspaceFolder}\\getgitappdata.js",
             "args": [
                 "${workspaceFolder}\\config/test.json",
@@ -26,6 +26,19 @@
                 "testout.json",
                 // "-t",
                 // "retrycopy"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "With -o and -t",
+            "program": "${workspaceFolder}\\getgitappdata.js",
+            "args": [
+                "${workspaceFolder}\\config/test.json",
+                "-o",
+                "testout.json",
+                "-t",
+                "smartmv"
             ]
         }
     ]
